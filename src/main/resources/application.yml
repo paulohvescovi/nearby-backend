@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/nearby?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: s@c0l1nhA2009
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  application:
+    name: NearBy Shop Server
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  error:
+    include-stacktrace: on_param
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+
+keycloak:
+  realm: NearByShopRealm
+  auth-server-url: http://127.0.0.1:9990/auth
+  ssl-required: external
+  resource: nearby-server
+  credentials:
+    secret: c27ac7ae-e16b-4436-ab84-24962e30535a
+  use-resource-role-mappings: true
+  bearer-only: true
