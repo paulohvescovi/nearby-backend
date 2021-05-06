@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: nearby
+      MYSQL_ROOT_PASSWORD: s@c0l1nhA2009
+    volumes:
+      - C:\Users\Paulo Henrique\IdeaProjects\nearby\database:/var/lib/mysql
+    networks:
+      - hr-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: nearby
+      DB_USER: root
+      DB_PASSWORD: s@c0l1nhA2009
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: s@c0l1nhA2009
+    ports:
+      - 9990:8080
+      - 9991:8443
+    networks:
+      - hr-net
+    depends_on:
+      - mysql
+
+networks:
+  hr-net:
+    driver: bridge
